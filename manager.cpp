@@ -52,7 +52,6 @@ void Manager::display()
 Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close|sf::Style::Titlebar)
 {
 	srand(NULL);
-	if (!this->font.loadFromFile("Assets/openSans_regular.ttf")) abort();
 }
 
 Manager::~Manager() {}

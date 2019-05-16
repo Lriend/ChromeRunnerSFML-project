@@ -38,6 +38,7 @@ void Player::render(sf::RenderWindow &window)
 
 Player::Player()
 {
+
 	this->dino.setSize(sf::Vector2f(50.f, 80.f));
 	this->dino.setPosition(sf::Vector2f(50.f, 250.f));
 	this->dino.setFillColor(sf::Color(60, 60, 60, 255));

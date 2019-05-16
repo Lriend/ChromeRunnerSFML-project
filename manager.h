@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "scene.h"
 #include "player.h"
+#include "obstacles.h"
 
 class Manager
 {
@@ -9,6 +10,7 @@ class Manager
 	sf::RenderWindow window;
 	Scene scene;
 	Player player;
+	Obstacles obstacles;
 	sf::Event event;
 public:
 	void handleEvents();
