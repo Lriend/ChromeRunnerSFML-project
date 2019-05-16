@@ -1,7 +1,12 @@
 #include "player.h"
 
+void Player::handleEvents(sf::Event & event)
+{
+}
+
 void Player::update(bool day)
 {
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&isGrounded&& !jump && dino.getPosition().y >= 0) {
 		jump = true;
 		isGrounded = false;
@@ -37,13 +42,13 @@ Player::Player()
 	this->dino.setPosition(sf::Vector2f(50.f, 250.f));
 	this->dino.setFillColor(sf::Color(60, 60, 60, 255));
 
-	this->gravity = .0005f;
+	this->gravity = .001f;
 	this->groundHeight = 250;
 	this->jumpTime = 0;
 
 	this->jump = false;
 	this->isGrounded = true;
-	this->jumpForce = .5f;
+	this->jumpForce = .65f;
 
 	this->velocity = sf::Vector2f(0, 0);
 }
