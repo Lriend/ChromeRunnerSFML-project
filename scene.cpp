@@ -12,13 +12,15 @@ void Scene::handleEvents(sf::Event & event)
 
 void Scene::update()
 {
-	this->moon.move(-.05f, 0.f);
+	deltaTime = dClock.restart();
+
+	this->moon.move(-.05f*deltaTime.asMicroseconds()/1000, 0.f);
 	if (this->moon.getPosition().x < -100) { this->day = !this->day; this->moon.setPosition(sf::Vector2f(800.f, 100.f)); }
 	this->moon.setTexture(sceneTex[14-(int)(200+this->moon.getPosition().x)/100]);
 	this->moon.setColor(this->day ? sf::Color(255, 255, 255, 0) : sf::Color(220, 220, 220, 255));
 
 	for (size_t i = 0; i < 3; i++) {
-		this->clouds[i].move((float)(this->derSpeedSir[i]*(-.01f)), 0.f);
+		this->clouds[i].move((float)(this->derSpeedSir[i]*(-.01f)*deltaTime.asMicroseconds() / 1000), 0.f);
 		if (this->clouds[i].getPosition().x < -100) {
 			this->clouds[i].setPosition(sf::Vector2f((float)(rand() % 400 + 800), (float)(rand() % 200 + 30))); 
 			this->derSpeedSir[i] = rand() % 5 + 1;
@@ -27,14 +29,14 @@ void Scene::update()
 	}
 
 	for (size_t i = 0; i < 5; i++) {
-		this->stars[i].move(-.05f, 0.f);
+		this->stars[i].move(-.05f*deltaTime.asMicroseconds() / 1000, 0.f);
 		if((int)this->stars[i].getPosition().x % 25 ==0) this->stars[i].setTexture(sceneTex[rand() % 3 + 2]);
 		if (this->stars[i].getPosition().x < -100) this->stars[i].setPosition(sf::Vector2f((float)(rand() % 1000), (float)(rand() % 200 + 30)));
 		this->stars[i].setColor(this->day ? sf::Color(50, 50, 50, 0) : sf::Color(175, 175, 175, 200));
 	}
 
 	for (size_t i = 0; i < 2; i++) {
-		this->ground[i].move(sf::Vector2f(-.1f, 0.f));
+		this->ground[i].move(sf::Vector2f(-.5f*deltaTime.asMicroseconds() / 1000, 0.f));
 		if (this->ground[i].getPosition().x < -1400) this->ground[i].move(sf::Vector2f(2400.f, 0.f));
 		this->ground[i].setColor(this->day ? sf::Color(50, 50, 50, 255) : sf::Color(215, 215, 215, 255));
 	}

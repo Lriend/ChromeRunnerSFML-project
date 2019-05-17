@@ -5,6 +5,8 @@ enum SCENETEX{CLOUD, GROUND, STAR0, STAR1, STAR2, MOON0, MOON1, MOON2, MOON3, MO
 
 class Scene
 {
+	sf::Clock dClock;
+	sf::Time deltaTime;
 	bool day;
 	sf::Texture sceneTex[14];
 	sf::Sprite ground[2];
