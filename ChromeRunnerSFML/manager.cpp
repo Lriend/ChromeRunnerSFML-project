@@ -41,6 +41,7 @@ void Manager::close()
 
 void Manager::clear()
 {
+	//this->window.clear(this->scene.getDay() ? sf::Color(204, 51, 102, 255) : sf::Color(0, 102, 0, 255));
 	this->window.clear(this->scene.getDay() ? sf::Color(255, 255, 255, 255) : sf::Color(0, 0, 0, 255));
 }
 
