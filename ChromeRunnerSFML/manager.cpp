@@ -3,11 +3,13 @@
 void Manager::handleEvents()
 {
 	if (event.key.code == sf::Keyboard::Escape && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) this->close();
-	scene.handleEvents(this->event);
+	//scene.handleEvents(this->event);
+	player.handleEvents(this->event);
 }
 
 void Manager::update()
 {
+	this->scene.update();
 	this->player.update(this->scene.getDay());
 }
 
@@ -47,10 +49,9 @@ void Manager::display()
 	this->window.display();
 }
 
-Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2")
+Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close|sf::Style::Titlebar)
 {
 	srand(NULL);
-	if (!this->font.loadFromFile("Assets/openSans_regular.ttf")) abort();
 }
 
 Manager::~Manager() {}

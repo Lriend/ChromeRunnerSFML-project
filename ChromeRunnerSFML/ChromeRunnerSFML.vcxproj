@@ -128,11 +128,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
+    <ClCompile Include="obstacles.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h" />
+    <ClInclude Include="obstacles.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="scene.h" />
