@@ -6,10 +6,10 @@ void Player::handleEvents(sf::Event & event)
 
 void Player::update(bool day)
 {
-	int texTime = tClock.getElapsedTime().asMilliseconds() % 500;
+	int texTime = tClock.getElapsedTime().asMilliseconds() % 200;
 
 	if (dino.getPosition().y < groundHeight) currentTex = RUN3; else
-	if (texTime >= 250) currentTex = RUN0; else
+	if (texTime >= 100) currentTex = RUN0; else
 			currentTex = RUN2;
 
 	deltaTime = dClock.restart();
