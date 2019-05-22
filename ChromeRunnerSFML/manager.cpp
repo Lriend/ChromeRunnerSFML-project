@@ -5,8 +5,8 @@ void Manager::handleEvents()
 	if (event.key.code == sf::Keyboard::Escape && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) this->close();
 	//scene.handleEvents(this->event);
 	player.handleEvents(this->event);
-
-	if (this->obstacles.getGameOver() && event.key.code == sf::Keyboard::Space) {
+	if (this->obstacles.getGameOver() && (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)) {
+		this->start = false;
 		obstacles.restart();
 		player.restart();
 		scene.restart();
@@ -20,6 +20,7 @@ void Manager::update()
 		this->player.update(this->scene.getDay());
 		this->obstacles.update(this->scene.getDay());
 	}
+	else if(!start)player.die(scene.getDay());
 }
 
 void Manager::render()
@@ -63,6 +64,7 @@ void Manager::display()
 Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close|sf::Style::Titlebar)
 {
 	srand(NULL);
+	start = true;
 }
 
 Manager::~Manager() {}

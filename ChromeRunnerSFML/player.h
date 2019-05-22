@@ -23,6 +23,7 @@ public:
 	void update(bool day);
 	void render(sf::RenderWindow &window);
 	void restart();
+	void die(bool day);
 	Player();
 	~Player();
 };

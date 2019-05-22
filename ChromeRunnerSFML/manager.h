@@ -12,6 +12,7 @@ class Manager
 	Player player;
 	Obstacles obstacles;
 	sf::Event event;
+	bool start;
 public:
 	void handleEvents();
 	void update();

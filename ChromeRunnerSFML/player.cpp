@@ -62,6 +62,11 @@ void Player::restart()
 	deltaTime = dClock.restart();
 }
 
+void Player::die(bool day)
+{
+	this->dino.setTexture(day?dinoTex[END]:nightTex[END]);
+}
+
 Player::Player() :groundHeight(266.f), gravity(.0004f), isGrounded(true), jumpForce(.3f), duck(false)
 {
 	if (!this->dinoTex[START].loadFromFile("Assets/dinoStart.png")) abort();
