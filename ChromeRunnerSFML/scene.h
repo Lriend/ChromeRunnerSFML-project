@@ -19,6 +19,7 @@ public:
 	void handleEvents(sf::Event &event);
 	void update();
 	void render(sf::RenderWindow &window);
+	void restart();
 	Scene();
 	~Scene();
 };

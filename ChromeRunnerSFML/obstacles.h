@@ -1,16 +1,22 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-enum OBSTACLETEX{SMALL_ONE, SMALL_TWO, SMALL_THREE, BIRD0, BIRD1};
+enum OBSTACLETEX{STH};
 
 class Obstacles
 {
-	sf::Texture obstacleTex[2];
-	sf::RectangleShape cactuses[3];
-	sf::RectangleShape birds[3];
+	bool gameOver;
+	sf::Time deltaTime;
+	sf::Clock dClock;
+	float freq;
+	sf::Texture dayTex[1];
+	sf::Texture nightTex[1];
+	sf::Sprite obstacles[5];
 public:
-	void update();
-	void render();
+	void update(bool day);
+	void render(sf::RenderWindow &window);
+	bool getGameOver();
+	void restart();
 	Obstacles();
 	~Obstacles();
 };

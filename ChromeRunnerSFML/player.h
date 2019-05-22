@@ -22,6 +22,7 @@ public:
 	void handleEvents(sf::Event &event);
 	void update(bool day);
 	void render(sf::RenderWindow &window);
+	void restart();
 	Player();
 	~Player();
 };

@@ -5,17 +5,27 @@ void Manager::handleEvents()
 	if (event.key.code == sf::Keyboard::Escape && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) this->close();
 	//scene.handleEvents(this->event);
 	player.handleEvents(this->event);
+
+	if (this->obstacles.getGameOver() && event.key.code == sf::Keyboard::Space) {
+		obstacles.restart();
+		player.restart();
+		scene.restart();
+	}
 }
 
 void Manager::update()
 {
-	this->scene.update();
-	this->player.update(this->scene.getDay());
+	if (!this->obstacles.getGameOver()) {
+		this->scene.update();
+		this->player.update(this->scene.getDay());
+		this->obstacles.update(this->scene.getDay());
+	}
 }
 
 void Manager::render()
 {
 	this->scene.render(this->window);
+	this->obstacles.render(this->window);
 	this->player.render(this->window);
 }
 

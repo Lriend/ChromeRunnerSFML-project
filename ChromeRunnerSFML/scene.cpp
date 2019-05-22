@@ -51,6 +51,23 @@ void Scene::render(sf::RenderWindow & window)
 	for (auto i : ground) window.draw(i);
 }
 
+void Scene::restart()
+{
+	this->day = true;
+
+	for (size_t i = 0; i < 5; i++) {
+		this->stars[i].setTexture(sceneTex[rand() % 3 + 2]);
+		this->stars[i].setPosition(sf::Vector2f((float)(rand() % 1000), (float)(rand() % 200 + 30)));
+		this->stars[i].setColor(this->day ? sf::Color(50, 50, 50, 0) : sf::Color(175, 175, 175, 200));
+	}
+
+	this->moon.setTexture(sceneTex[MOON4]);
+	this->moon.setPosition(sf::Vector2f(800.f, 100.f));
+	this->moon.setColor(this->day ? sf::Color(255, 255, 255, 0) : sf::Color(220, 220, 220, 255));
+
+	deltaTime = dClock.restart();
+}
+
 Scene::Scene() : day(true){
 
 	if (!this->sceneTex[CLOUD].loadFromFile("Assets/cloud.png")) abort();
