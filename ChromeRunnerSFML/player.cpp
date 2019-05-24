@@ -65,6 +65,7 @@ void Player::restart()
 
 void Player::die(bool day)
 {
+	this->dino.setTextureRect(sf::IntRect(0, 0, 44, 47));
 	this->dino.setTexture(day?dinoTex[END]:nightTex[END]);
 }
 

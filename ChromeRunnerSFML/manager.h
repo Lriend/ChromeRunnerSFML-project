@@ -14,6 +14,7 @@ class Manager
 	sf::Event event;
 	bool start;
 	bool gameOver;
+	bool restart;
 public:
 	void handleEvents();
 	void update();

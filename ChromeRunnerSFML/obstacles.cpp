@@ -60,10 +60,12 @@ void Obstacles::restart()
 
 void Obstacles::updateGameOver(sf::Sprite player)
 {
-	player.setScale(.25f,.9f);
-	player.move(player.getTexture()->getSize().x *(.5f-player.getScale().x/2), player.getTexture()->getSize().y *(.5f - player.getScale().y / 2));
-	for (size_t i = 0; i < 3; i++)	if(player.getGlobalBounds().intersects(standingObs[i].getGlobalBounds()))gameOver=true;
-	for (size_t i = 0; i < 2; i++)	if(player.getGlobalBounds().intersects(flyingObs[i].getGlobalBounds()))gameOver=true;
+	player.setScale(.5f, .9f);
+	player.move(player.getTexture()->getSize().x *player.getScale().x / 4, player.getTexture()->getSize().y *(.5f - player.getScale().y / 2));
+	for (size_t i = 0; i < 3; i++)	if (player.getGlobalBounds().intersects(standingObs[i].getGlobalBounds()))gameOver = true;
+	for (size_t i = 0; i < 2; i++)	if (player.getGlobalBounds().intersects(flyingObs[i].getGlobalBounds()))gameOver = true;
+}
+
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/*sf::Vector2f collider(playerPosition.x + playerSize.x / 2, playerPosition.y + playerSize.y / 2);
 	for (size_t i = 0; i < 3; i++) {
@@ -111,7 +113,6 @@ void Obstacles::updateGameOver(sf::Sprite player)
 	//		)
 	//		gameOver = true;
 	//}
-}
 
 Obstacles::Obstacles()
 {
