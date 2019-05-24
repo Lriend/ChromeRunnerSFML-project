@@ -24,6 +24,7 @@ public:
 	void render(sf::RenderWindow &window);
 	void restart();
 	void die(bool day);
+	sf::Sprite getDinoSprite();
 	Player();
 	~Player();
 };

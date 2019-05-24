@@ -18,6 +18,7 @@ public:
 	void render(sf::RenderWindow &window);
 	bool getGameOver();
 	void restart();
+	void updateGameOver(sf::Sprite player);
 	Obstacles();
 	~Obstacles();
 };

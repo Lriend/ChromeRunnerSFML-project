@@ -26,8 +26,6 @@ void Obstacles::update(bool day)
 			//std::cout << freq<<std::endl;//DEBUG
 		}
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) gameOver = true;
 }
 
 void Obstacles::render(sf::RenderWindow &window)
@@ -60,11 +58,66 @@ void Obstacles::restart()
 	deltaTime = dClock.restart();
 }
 
+void Obstacles::updateGameOver(sf::Sprite player)
+{
+	player.setScale(.25f,.9f);
+	player.move(player.getTexture()->getSize().x *(.5f-player.getScale().x/2), player.getTexture()->getSize().y *(.5f - player.getScale().y / 2));
+	for (size_t i = 0; i < 3; i++)	if(player.getGlobalBounds().intersects(standingObs[i].getGlobalBounds()))gameOver=true;
+	for (size_t i = 0; i < 2; i++)	if(player.getGlobalBounds().intersects(flyingObs[i].getGlobalBounds()))gameOver=true;
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	/*sf::Vector2f collider(playerPosition.x + playerSize.x / 2, playerPosition.y + playerSize.y / 2);
+	for (size_t i = 0; i < 3; i++) {
+		if (collider.x > standingObs[i].getPosition().x && collider.x < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().x &&
+			collider.y > standingObs[i].getPosition().y && collider.y < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().y) {
+			gameOver = true;
+		}
+	}
+	for (size_t i = 0; i < 2; i++) {
+		if (collider.x > flyingObs[i].getPosition().x && collider.x < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().y &&
+			collider.y > flyingObs[i].getPosition().y && collider.y < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().x) {
+			gameOver = true;
+		}
+	}*/
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//for (size_t i = 0; i < 3; i++) {
+	//	if (//UpperLeft
+	//		(playerPosition.x > standingObs[i].getPosition().x && playerPosition.x < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y > standingObs[i].getPosition().y && playerPosition.y < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().y)
+	//		||//Lowerleft
+	//		(playerPosition.x > standingObs[i].getPosition().x && playerPosition.x < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y + playerSize.y > standingObs[i].getPosition().y && playerPosition.y + playerSize.y < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().y)
+	//		||//UpperRight
+	//		(playerPosition.x + playerSize.x > standingObs[i].getPosition().x && playerPosition.x + playerSize.x < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y > standingObs[i].getPosition().y && playerPosition.y < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().y)
+	//		||//LowerRight
+	//		(playerPosition.x + playerSize.x > standingObs[i].getPosition().x && playerPosition.x + playerSize.x < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y + playerSize.y > standingObs[i].getPosition().y && playerPosition.y + playerSize.y < standingObs[i].getPosition().x + standingObs[i].getTexture()->getSize().y)
+	//		)
+	//		gameOver = true;
+	//}
+	//for (size_t i = 0; i < 2; i++) {
+	//	if (//UpperLeft
+	//		(playerPosition.x > flyingObs[i].getPosition().x && playerPosition.x < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y > flyingObs[i].getPosition().y && playerPosition.y < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().y)
+	//		||//Lowerleft
+	//		(playerPosition.x > flyingObs[i].getPosition().x && playerPosition.x < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y + playerSize.y > flyingObs[i].getPosition().y && playerPosition.y + playerSize.y < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().y)
+	//		||//UpperRight
+	//		(playerPosition.x + playerSize.x > flyingObs[i].getPosition().x && playerPosition.x + playerSize.x < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y > flyingObs[i].getPosition().y && playerPosition.y < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().y)
+	//		||//LowerRight
+	//		(playerPosition.x + playerSize.x > flyingObs[i].getPosition().x && playerPosition.x + playerSize.x < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().x &&
+	//			playerPosition.y + playerSize.y > flyingObs[i].getPosition().y && playerPosition.y + playerSize.y < flyingObs[i].getPosition().x + flyingObs[i].getTexture()->getSize().y)
+	//		)
+	//		gameOver = true;
+	//}
+}
+
 Obstacles::Obstacles()
 {
 	this->gameOver = true;
-	if (!this->dayTex[STH].loadFromFile("Assets/sthday.png")) abort();
-	if (!this->nightTex[STH].loadFromFile("Assets/sthnight.png")) abort();
+	if (!this->dayTex[STH].loadFromFile("Assets/sthdaysq.png")) abort();
+	if (!this->nightTex[STH].loadFromFile("Assets/sthnightsq.png")) abort();
 	this->freq = 1.f;
 	for (size_t i = 0; i < 3; i++) {
 		this->standingObs[i].setTexture(dayTex[STH]);

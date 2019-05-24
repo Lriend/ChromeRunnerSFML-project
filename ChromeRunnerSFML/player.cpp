@@ -36,8 +36,8 @@ void Player::update(bool day)
 
 	//movem
 	velocity.x = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && dino.getPosition().x > 10) velocity.x = -.5f*deltaTime.asMicroseconds() / 1000;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && dino.getPosition().x < 700) velocity.x = .5f*deltaTime.asMicroseconds() / 1000;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && dino.getPosition().x > 50) velocity.x = -.5f*deltaTime.asMicroseconds() / 1000;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && dino.getPosition().x < 750) velocity.x = .5f*deltaTime.asMicroseconds() / 1000;
 	duck?dino.setTextureRect(sf::IntRect(0, 0, 59, 30)):dino.setTextureRect(sf::IntRect(0, 0, 44, 47));
 	if (duck) dino.setPosition(dino.getPosition().x, 283.f);
 	dino.setTexture(day?dinoTex[currentTex]:nightTex[currentTex]);
@@ -59,12 +59,17 @@ void Player::restart()
 	this->dino.setColor(sf::Color(255, 255, 255, 255));
 
 	this->velocity = sf::Vector2f(0.f, 0.f);
-	deltaTime = dClock.restart();
+	deltaTime = dClock.restart(); 
+	//dino.getTexture()->getSize().x ---------------------------- C O L L I S I O N S -----------------------------------
 }
 
 void Player::die(bool day)
 {
 	this->dino.setTexture(day?dinoTex[END]:nightTex[END]);
+}
+
+sf::Sprite Player::getDinoSprite() {
+	return dino;
 }
 
 Player::Player() :groundHeight(266.f), gravity(.0004f), isGrounded(true), jumpForce(.3f), duck(false)

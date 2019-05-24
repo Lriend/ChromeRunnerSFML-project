@@ -5,6 +5,10 @@ enum SCENETEX{CLOUD, GROUND, STAR0, STAR1, STAR2, MOON0, MOON1, MOON2, MOON3, MO
 
 class Scene
 {
+	sf::Font font8Bit;
+	unsigned score; sf::Text scoreText;
+	unsigned hScore; sf::Text hScoreText;
+	sf::Clock scoreClock;
 	sf::Clock dClock;
 	sf::Time deltaTime;
 	bool day;
@@ -20,6 +24,8 @@ public:
 	void update();
 	void render(sf::RenderWindow &window);
 	void restart();
+	void updateScore();
+	void resetScore();
 	Scene();
 	~Scene();
 };

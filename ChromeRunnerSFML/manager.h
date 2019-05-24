@@ -13,6 +13,7 @@ class Manager
 	Obstacles obstacles;
 	sf::Event event;
 	bool start;
+	bool gameOver;
 public:
 	void handleEvents();
 	void update();

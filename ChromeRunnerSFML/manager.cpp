@@ -5,8 +5,9 @@ void Manager::handleEvents()
 	if (event.key.code == sf::Keyboard::Escape && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) this->close();
 	//scene.handleEvents(this->event);
 	player.handleEvents(this->event);
-	if (this->obstacles.getGameOver() && (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)) {
+	if (this->obstacles.getGameOver() && event.key.code == sf::Keyboard::Enter) {
 		this->start = false;
+		this->gameOver = false;
 		obstacles.restart();
 		player.restart();
 		scene.restart();
@@ -15,10 +16,17 @@ void Manager::handleEvents()
 
 void Manager::update()
 {
-	if (!this->obstacles.getGameOver()) {
+	this->obstacles.updateGameOver(player.getDinoSprite());
+	if ((this->obstacles.getGameOver()&&!this->gameOver)||start) {
+		this->scene.resetScore();
+		this->gameOver = true;
+	}
+	if (!this->obstacles.getGameOver()&&!this->start) {
 		this->scene.update();
 		this->player.update(this->scene.getDay());
 		this->obstacles.update(this->scene.getDay());
+		this->scene.updateScore();
+		//this->obstacles.updateGameOver(player.getDinoSize(), player.getDinoPosition());
 	}
 	else if(!start)player.die(scene.getDay());
 }
@@ -65,6 +73,7 @@ Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf:
 {
 	srand(NULL);
 	start = true;
+	gameOver = true;
 }
 
 Manager::~Manager() {}

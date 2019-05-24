@@ -1,4 +1,5 @@
 #include "scene.h"
+#include <iostream>
 
 bool Scene::getDay()
 {
@@ -41,6 +42,7 @@ void Scene::update()
 		this->ground[i].setColor(this->day ? sf::Color(50, 50, 50, 255) : sf::Color(215, 215, 215, 255));
 	}
 
+	scoreText.setFillColor(day?sf::Color(64, 64, 64, 255):sf::Color(192,192,192,255));
 }
 
 void Scene::render(sf::RenderWindow & window)
@@ -49,6 +51,8 @@ void Scene::render(sf::RenderWindow & window)
 	window.draw(this->moon);
 	for (auto i : this->clouds) window.draw(i);
 	for (auto i : ground) window.draw(i);
+	window.draw(scoreText);
+	if(hScore)window.draw(hScoreText);
 }
 
 void Scene::restart()
@@ -68,7 +72,26 @@ void Scene::restart()
 	deltaTime = dClock.restart();
 }
 
-Scene::Scene() : day(true){
+void Scene::updateScore()
+{
+	if (score != scoreClock.getElapsedTime().asSeconds()) { 
+		score = scoreClock.getElapsedTime().asSeconds(); 
+		std::string scoreString = std::to_string(score);
+		score >= 10000 ? scoreText.setString(scoreString) : score >= 1000 ? scoreText.setString("0" + scoreString) : score >= 100 ? scoreText.setString("00" + scoreString) : score >= 10 ? scoreText.setString("000" + scoreString) : scoreText.setString("0000" + scoreString);
+		if (hScore < score) { hScore = score; hScoreText.setString("HI " + scoreText.getString()); }
+	}
+}
+
+void Scene::resetScore()
+{
+	if(hScore<score)hScore = score;
+	scoreClock.restart();
+	std::cout << "highscore: " << hScore << std::endl;
+	std::cout << "score: " << score << std::endl;
+	score = 0;
+}
+
+Scene::Scene() : day(true), score(0), hScore(0){
 
 	if (!this->sceneTex[CLOUD].loadFromFile("Assets/cloud.png")) abort();
 	if (!this->sceneTex[GROUND].loadFromFile("Assets/ground.png")) abort();
@@ -108,6 +131,17 @@ Scene::Scene() : day(true){
 		this->clouds[i].setColor(this->day ? sf::Color(235, 235, 235, 255) : sf::Color(50, 50, 50, 255)); 
 		this->derSpeedSir[i] = rand() % 3+1;
 	}
+	if(!font8Bit.loadFromFile("Assets/8bitOperatorPlus8-Bold.ttf")) abort();
+	scoreText.setFont(font8Bit);
+	scoreText.setString("00000");
+	scoreText.setPosition(725.f,5.f);
+	scoreText.setFillColor(sf::Color(64, 64, 64, 255));
+	scoreText.setCharacterSize(20);
+	hScoreText.setFont(font8Bit);
+	hScoreText.setString("HI 00000");
+	hScoreText.setPosition(615.f,5.f);
+	hScoreText.setFillColor(sf::Color(128, 128, 128, 255));
+	hScoreText.setCharacterSize(20);
 }
 
 Scene::~Scene(){}
