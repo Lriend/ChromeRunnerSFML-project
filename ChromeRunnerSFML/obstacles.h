@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-enum OBSTACLETEX{STH};
+enum OBSTACLETYPE{SMALL, WIDE, TALL, HIGH, FLYING};
 
 class Obstacles
 {
@@ -9,10 +9,10 @@ class Obstacles
 	sf::Time deltaTime;
 	sf::Clock dClock;
 	float freq;
-	sf::Texture dayTex[1];
-	sf::Texture nightTex[1];
+	sf::Texture tex[2][5];
 	sf::Sprite flyingObs[2];
 	sf::Sprite standingObs[3];
+	unsigned standingType[3];
 public:
 	void update(bool day);
 	void render(sf::RenderWindow &window);
