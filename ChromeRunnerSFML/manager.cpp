@@ -74,7 +74,7 @@ void Manager::display()
 	this->window.display();
 }
 
-Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close | sf::Style::Titlebar)
+Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lriend", sf::Style::Close | sf::Style::Titlebar)
 {
 	srand(NULL);
 	start = true;
