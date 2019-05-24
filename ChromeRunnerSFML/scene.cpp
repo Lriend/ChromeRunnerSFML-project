@@ -1,5 +1,5 @@
 #include "scene.h"
-#include <iostream>
+//#include <iostream>
 
 bool Scene::getDay()
 {
@@ -75,7 +75,7 @@ void Scene::restart()
 void Scene::updateScore()
 {
 	if (score != scoreClock.getElapsedTime().asSeconds()) { 
-		score = scoreClock.getElapsedTime().asSeconds(); 
+		score = (unsigned)scoreClock.getElapsedTime().asSeconds(); 
 		std::string scoreString = std::to_string(score);
 		score >= 10000 ? scoreText.setString(scoreString) : score >= 1000 ? scoreText.setString("0" + scoreString) : score >= 100 ? scoreText.setString("00" + scoreString) : score >= 10 ? scoreText.setString("000" + scoreString) : scoreText.setString("0000" + scoreString);
 		if (hScore < score) { hScore = score; hScoreText.setString("HI " + scoreText.getString()); }
@@ -86,8 +86,8 @@ void Scene::resetScore()
 {
 	if(hScore<score)hScore = score;
 	scoreClock.restart();
-	std::cout << "highscore: " << hScore << std::endl;
-	std::cout << "score: " << score << std::endl;
+	//std::cout << "highscore: " << hScore << std::endl;
+	//std::cout << "score: " << score << std::endl;
 	score = 0;
 }
 

@@ -12,7 +12,7 @@ void Obstacles::update(bool day)
 		if (this->standingObs[i].getPosition().x < -100) {
 			//this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i>0?i-1:2].getPosition().x+1000.f/freq, (float)(rand() % 250 + 30)));
 			this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i>0?i-1:2].getPosition().x+1000.f/freq, 250.f));
-			if (!i&&freq < 4.f) this->freq += .04f;
+			if (!i&&freq < 3.f) this->freq += .03f;
 			//std::cout << freq<<std::endl;//DEBUG
 		}
 	}

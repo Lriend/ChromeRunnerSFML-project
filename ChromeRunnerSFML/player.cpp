@@ -4,7 +4,7 @@ void Player::handleEvents(sf::Event & event)
 {
 }
 
-void Player::update(bool day)
+void Player::update(bool day, sf::Event &event)
 {
 	int texTime = tClock.getElapsedTime().asMilliseconds() % 200;
 
@@ -22,7 +22,7 @@ void Player::update(bool day)
 	if (isGrounded) {
 		velocity.y = 0;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) this->duck = true; else this->duck = false;
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))&&!duck) velocity.y = -jumpForce;
+		if ((event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Space))&&!duck) velocity.y = -jumpForce;
 	}
 	else {
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) /*&&velocity<0 gdybym chcial zrobic spadanie niezaleznie od wcisniecia spacji*/) velocity.y += gravity / 2;

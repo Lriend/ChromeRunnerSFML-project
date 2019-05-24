@@ -13,6 +13,7 @@ void Manager::handleEvents()
 		obstacles.restart();
 		player.restart();
 		scene.restart();
+		endText < 8 ? endText++: endText = 1;
 	}
 }
 
@@ -25,7 +26,7 @@ void Manager::update()
 	}
 	if (!this->obstacles.getGameOver()&&!this->start) {
 		this->scene.update();
-		this->player.update(this->scene.getDay());
+		this->player.update(this->scene.getDay(), event);
 		this->obstacles.update(this->scene.getDay());
 		this->scene.updateScore();
 		//this->obstacles.updateGameOver(player.getDinoSize(), player.getDinoPosition());
@@ -38,6 +39,8 @@ void Manager::render()
 	this->scene.render(this->window);
 	this->obstacles.render(this->window);
 	this->player.render(this->window);
+	if(obstacles.getGameOver()&&!start)this->window.draw(DEATH[0]);
+	if(obstacles.getGameOver()&&!start)this->window.draw(DEATH[endText]);
 }
 
 bool Manager::isOpen()
@@ -63,7 +66,7 @@ void Manager::close()
 void Manager::clear()
 {
 	//this->window.clear(this->scene.getDay() ? sf::Color(204, 51, 102, 255) : sf::Color(0, 102, 0, 255));
-	this->window.clear(this->obstacles.getGameOver()&&!start?sf::Color(153,0,51,255):this->scene.getDay() ? sf::Color(255, 255, 255, 255) : sf::Color(0, 0, 0, 255));
+	this->window.clear(this->scene.getDay() ? sf::Color(255, 255, 255, 255) : sf::Color(0, 0, 0, 255));
 }
 
 void Manager::display()
@@ -71,12 +74,36 @@ void Manager::display()
 	this->window.display();
 }
 
-Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close|sf::Style::Titlebar)
+Manager::Manager() : window(sf::VideoMode(800, 400), "Lorem Ipsum Title v2", sf::Style::Close | sf::Style::Titlebar)
 {
 	srand(NULL);
 	start = true;
 	gameOver = true;
 	restart = true;
+	if (!font.loadFromFile("Assets/8bitOperatorPlus8-Bold.ttf")) abort();
+	for (size_t i = 0; i < 9; i++) DEATH[i].setFont(font);
+	DEATH[0].setString("DEAD!");
+
+	DEATH[1].setString("K.O.");
+	DEATH[2].setString("And that's how dinosaurs become extinct!");
+	DEATH[3].setString("You motherf****r! You murdered him!");
+	DEATH[4].setString("Fatality!");
+	DEATH[5].setString("Are you proud of yourself?");
+	DEATH[6].setString("Not even funny anymore");
+	DEATH[7].setString("Even my mother could beat you in this game.");
+	DEATH[8].setString("Don't be fooled. Earth is flat.");
+
+	DEATH[0].setPosition(150.f, -50.f);
+	DEATH[0].setCharacterSize(192);
+	DEATH[0].setRotation(20.f);
+	for (size_t i = 1; i < 9; i++) {
+		DEATH[i].setPosition(100.f, 150.f);
+		DEATH[i].setCharacterSize(20);
+		DEATH[i].setRotation(20.f);
+	}
+	for (size_t i = 0; i < 9; i++) DEATH[i].setFillColor(sf::Color(153, 0, 51, 255));
+
+	endText = rand() % 8 + 1;
 }
 
 Manager::~Manager() {}

@@ -20,7 +20,7 @@ class Player
 	sf::Sprite dino;
 public:
 	void handleEvents(sf::Event &event);
-	void update(bool day);
+	void update(bool day, sf::Event &event);
 	void render(sf::RenderWindow &window);
 	void restart();
 	void die(bool day);

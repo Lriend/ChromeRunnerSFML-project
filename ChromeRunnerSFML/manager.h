@@ -6,7 +6,7 @@
 
 class Manager
 {
-	sf::Font font;
+	sf::Font font; sf::Text DEATH[9]; unsigned endText;
 	sf::RenderWindow window;
 	Scene scene;
 	Player player;
