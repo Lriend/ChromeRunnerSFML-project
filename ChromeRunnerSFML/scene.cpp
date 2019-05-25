@@ -11,10 +11,8 @@ void Scene::handleEvents(sf::Event & event)
 	//if (event.key.code == sf::Keyboard::Enter && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) this->day = !day;
 }
 
-void Scene::update()
+void Scene::update(sf::Time deltaTime)
 {
-	deltaTime = dClock.restart();
-
 	this->moon.move(-.05f*deltaTime.asMicroseconds()/1000, 0.f);
 	if (this->moon.getPosition().x < -100) { this->day = !this->day; this->moon.setPosition(sf::Vector2f(800.f, 100.f)); }
 	this->moon.setTexture(sceneTex[14-(int)(200+this->moon.getPosition().x)/100]);
@@ -69,13 +67,16 @@ void Scene::restart()
 	this->moon.setPosition(sf::Vector2f(800.f, 100.f));
 	this->moon.setColor(this->day ? sf::Color(255, 255, 255, 0) : sf::Color(220, 220, 220, 255));
 
-	deltaTime = dClock.restart();
+	score = 0;
+	scoreText.setString("00000");
 }
 
-void Scene::updateScore()
+void Scene::updateScore(bool pause)
 {
-	if (score != scoreClock.getElapsedTime().asSeconds()) { 
-		score = (unsigned)scoreClock.getElapsedTime().asSeconds(); 
+	if (pause) scoreClock.restart();
+	else if (scoreClock.getElapsedTime().asSeconds()>=1.f) { 
+		scoreClock.restart();
+		score++;
 		std::string scoreString = std::to_string(score);
 		score >= 10000 ? scoreText.setString(scoreString) : score >= 1000 ? scoreText.setString("0" + scoreString) : score >= 100 ? scoreText.setString("00" + scoreString) : score >= 10 ? scoreText.setString("000" + scoreString) : scoreText.setString("0000" + scoreString);
 		if (hScore < score) { hScore = score; hScoreText.setString("HI " + scoreText.getString()); }
@@ -84,11 +85,15 @@ void Scene::updateScore()
 
 void Scene::resetScore()
 {
-	if(hScore<score)hScore = score;
-	scoreClock.restart();
 	//std::cout << "highscore: " << hScore << std::endl;
 	//std::cout << "score: " << score << std::endl;
+	scoreClock.restart();
 	score = 0;
+}
+
+int Scene::getHighScore()
+{
+	return hScore;
 }
 
 Scene::Scene() : day(true), score(0), hScore(0){

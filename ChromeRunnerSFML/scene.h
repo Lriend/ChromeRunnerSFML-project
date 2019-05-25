@@ -21,11 +21,12 @@ class Scene
 public:
 	bool getDay();
 	void handleEvents(sf::Event &event);
-	void update();
+	void update(sf::Time deltatime);
 	void render(sf::RenderWindow &window);
 	void restart();
-	void updateScore();
+	void updateScore(bool pause);
 	void resetScore();
+	int getHighScore();
 	Scene();
 	~Scene();
 };

@@ -6,7 +6,12 @@
 
 class Manager
 {
-	sf::Font font; sf::Text DEATH[9]; unsigned endText;
+	sf::Font font; sf::Text DEATH[14]; unsigned endText;
+	sf::Text PAUSE[9]; unsigned hint; bool pause;
+	sf::Clock lCock;
+	sf::Time delta;
+	sf::Clock hClock;
+
 	sf::RenderWindow window;
 	Scene scene;
 	Player player;
@@ -25,6 +30,7 @@ public:
 	void close();
 	void clear();
 	void display();
+	int getHighScore();
 	Manager();
 	virtual ~Manager();
 };

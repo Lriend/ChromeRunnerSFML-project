@@ -2,9 +2,8 @@
 //#include <iostream> //DEBUG
 
 
-void Obstacles::update(bool day)
+void Obstacles::update(bool day, sf::Time deltaTime)
 {
-	deltaTime = dClock.restart();
 
 	for (size_t i = 0; i < 3; i++) {
 		this->standingObs[i].move(-.5f*deltaTime.asMicroseconds() / 1000, 0.f);
@@ -81,7 +80,6 @@ void Obstacles::restart()
 		this->flyingObs[i].setColor(sf::Color::White);
 		this->flyingObs[i].setRotation(90.f);
 	}
-	deltaTime = dClock.restart();
 }
 
 void Obstacles::updateGameOver(sf::Sprite player)

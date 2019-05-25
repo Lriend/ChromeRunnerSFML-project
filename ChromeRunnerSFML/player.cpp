@@ -1,18 +1,12 @@
 #include "player.h"
 
-void Player::handleEvents(sf::Event & event)
-{
-}
-
-void Player::update(bool day, sf::Event &event)
+void Player::update(bool day, sf::Event &event, sf::Time deltaTime)
 {
 	int texTime = tClock.getElapsedTime().asMilliseconds() % 200;
 
 	if (dino.getPosition().y < groundHeight) currentTex = RUN3; else
 	if (texTime >= 100) currentTex = RUN0; else
 			currentTex = RUN2;
-
-	deltaTime = dClock.restart();
 
 	if (this->dino.getPosition().y > groundHeight) dino.setPosition(dino.getPosition().x, groundHeight);
 	this->isGrounded = dino.getPosition().y == groundHeight ? true : false;
@@ -21,11 +15,11 @@ void Player::update(bool day, sf::Event &event)
 	//jmp
 	if (isGrounded) {
 		velocity.y = 0;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) this->duck = true; else this->duck = false;
-		if ((event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Space))&&!duck) velocity.y = -jumpForce;
+		this->duck = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)?true:false;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !duck) { velocity.y = -jumpForce; }
 	}
 	else {
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) /*&&velocity<0 gdybym chcial zrobic spadanie niezaleznie od wcisniecia spacji*/) velocity.y += gravity / 2;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) /*&&velocity<0 gdybym chcial zrobic spadanie niezaleznie od wcisniecia spacji*/) velocity.y += gravity / 2;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) velocity.y += gravity * 10;
 		else velocity.y += gravity;
 	}
@@ -59,8 +53,6 @@ void Player::restart()
 	this->dino.setColor(sf::Color(255, 255, 255, 255));
 
 	this->velocity = sf::Vector2f(0.f, 0.f);
-	deltaTime = dClock.restart(); 
-	//dino.getTexture()->getSize().x ---------------------------- C O L L I S I O N S -----------------------------------
 }
 
 void Player::die(bool day)

@@ -5,8 +5,6 @@ enum DINOTEX { START, RUN0, RUN2, RUN3, DUCK0, DUCK2, END};
 
 class Player
 {
-	sf::Clock dClock;
-	sf::Time deltaTime;
 
 	const float groundHeight, gravity, jumpForce;
 	sf::Vector2f velocity;
@@ -19,8 +17,7 @@ class Player
 	DINOTEX currentTex;
 	sf::Sprite dino;
 public:
-	void handleEvents(sf::Event &event);
-	void update(bool day, sf::Event &event);
+	void update(bool day, sf::Event &event, sf::Time deltaTime);
 	void render(sf::RenderWindow &window);
 	void restart();
 	void die(bool day);
