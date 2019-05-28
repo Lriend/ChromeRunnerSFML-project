@@ -53,7 +53,7 @@ void Manager::render()
 		PAUSE[3].setString("I was launched exactly\n        " + std::to_string((int)hClock.getElapsedTime().asSeconds()) + "\n                seconds ago.");
 		this->window.draw(PAUSE[0]);
 		this->window.draw(PAUSE[hint]);
-	}
+	}if (start) { window.draw(START); window.draw(HOWTOPLAY); }
 }
 
 bool Manager::isOpen()
@@ -101,8 +101,12 @@ Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lrie
 	if (!font.loadFromFile("Assets/8bitOperatorPlus8-Bold.ttf")) abort();
 	for (size_t i = 0; i < 14; i++) DEATH[i].setFont(font);
 	for (size_t i = 0; i < 9; i++) PAUSE[i].setFont(font);
+	START.setFont(font);
+	HOWTOPLAY.setFont(font);
 	DEATH[0].setString("DEAD!");
 	PAUSE[0].setString("PAUSE");
+	START.setString("ChromeRunnerSFML");
+	HOWTOPLAY.setString("Movement - arrows, quit - 'Q', pause - 'Escape'/'P'\n\n\n\n\n\n\n\n\n\nPress any key to continue...");
 
 	DEATH[1].setString("K.O.");
 	DEATH[2].setString("And that's how dinosaurs become extinct!");
@@ -134,6 +138,11 @@ Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lrie
 	PAUSE[0].setCharacterSize(192);
 	PAUSE[0].setRotation(-20.f);
 
+	START.setPosition(50.f, 50.f);
+	HOWTOPLAY.setPosition(75.f, 125.f);
+	START.setCharacterSize(60);
+	HOWTOPLAY.setCharacterSize(20);
+
 	for (size_t i = 1; i < 14; i++) {
 		DEATH[i].setPosition(100.f, 150.f);
 		DEATH[i].setCharacterSize(20);
@@ -156,6 +165,12 @@ Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lrie
 	}
 	hint = 1;
 	endText = rand() % 13 + 1;
+	START.setFillColor(sf::Color(153,128,0,255));
+	HOWTOPLAY.setFillColor(sf::Color(153,128,0,255));
+	START.setOutlineThickness(2.f);
+	HOWTOPLAY.setOutlineThickness(2.f);
+	START.setOutlineColor(sf::Color::White);
+	HOWTOPLAY.setOutlineColor(sf::Color::White);
 }
 
 Manager::~Manager() {}

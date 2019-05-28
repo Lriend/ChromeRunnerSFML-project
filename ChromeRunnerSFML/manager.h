@@ -8,6 +8,7 @@ class Manager
 {
 	sf::Font font; sf::Text DEATH[14]; unsigned endText;
 	sf::Text PAUSE[9]; unsigned hint; bool pause;
+	sf::Text START; sf::Text HOWTOPLAY;
 	sf::Clock lCock;
 	sf::Time delta;
 	sf::Clock hClock;

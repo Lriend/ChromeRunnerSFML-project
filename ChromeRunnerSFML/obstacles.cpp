@@ -4,37 +4,32 @@
 
 void Obstacles::update(bool day, sf::Time deltaTime)
 {
-
 	for (size_t i = 0; i < 3; i++) {
 		this->standingObs[i].move(-.5f*deltaTime.asMicroseconds() / 1000, 0.f);
 		day ? this->standingObs[i].setTexture(tex[1][standingType[i]]) : this->standingObs[i].setTexture(tex[0][standingType[i]]);
-		if (this->standingObs[i].getPosition().x < -200) {
+		if (this->standingObs[i].getPosition().x < -350) {
 			standingType[i] = (unsigned)rand() % 4;
 			//this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i>0?i-1:2].getPosition().x+1000.f/freq, (float)(rand() % 250 + 30)));
 			switch (standingType[i])
 			{
 			case SMALL:
-				standingObs[i].setTextureRect(sf::IntRect(0, 0, 75,117));
-				standingObs[i].setScale(1.f, 1.f);
-				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq, 250.f));
+				standingObs[i].setTextureRect(sf::IntRect(0, 0, 75, 117));
+				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq + this->standingObs[i > 0 ? i - 1 : 2].getTexture()->getSize().x, 250.f));
 				break;
 			case WIDE:
-				standingObs[i].setTextureRect(sf::IntRect(0, 0, 150, 117));
-				standingObs[i].setScale(1.f, 1.f);
-				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq, 250.f));
+				standingObs[i].setTextureRect(sf::IntRect(0, 0, 300, 117));
+				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq + this->standingObs[i > 0 ? i - 1 : 2].getTexture()->getSize().x, 250.f));
 				break;
 			case HIGH:
-				standingObs[i].setTextureRect(sf::IntRect(0, 0, 75, 700));
-				standingObs[i].setScale(.5f, .5f);
-				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq, -75.f));
+				standingObs[i].setTextureRect(sf::IntRect(0, 0, 38, 350));
+				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq + this->standingObs[i > 0 ? i - 1 : 2].getTexture()->getSize().x, -75.f));
 				break;
 			case TALL:
-				standingObs[i].setTextureRect(sf::IntRect(0, 0, 75, 700));
-				standingObs[i].setScale(.5f, .5f);
-				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq, 150.f));
+				standingObs[i].setTextureRect(sf::IntRect(0, 0, 38, 350));
+				this->standingObs[i].setPosition(sf::Vector2f(this->standingObs[i > 0 ? i - 1 : 2].getPosition().x + 1000.f / freq + this->standingObs[i > 0 ? i - 1 : 2].getTexture()->getSize().x, 150.f));
 				break;
 			}
-			if (!i&&freq < 3.f) this->freq += .03f;
+			if (!i&&freq < 2.5f) this->freq += .025f;
 			//std::cout << freq<<std::endl;//DEBUG
 		}
 	}
@@ -84,8 +79,8 @@ void Obstacles::restart()
 
 void Obstacles::updateGameOver(sf::Sprite player)
 {
-	player.setScale(.5f, .9f);
-	player.move(player.getTexture()->getSize().x *player.getScale().x / 4, player.getTexture()->getSize().y *(.5f - player.getScale().y / 2));
+	player.setScale(.5f, .5f);
+	player.move(player.getTexture()->getSize().x *player.getScale().x / 4, player.getTexture()->getSize().y *player.getScale().y / 4);
 	for (size_t i = 0; i < 3; i++)	if (player.getGlobalBounds().intersects(standingObs[i].getGlobalBounds()))gameOver = true;
 	for (size_t i = 0; i < 2; i++)	if (player.getGlobalBounds().intersects(flyingObs[i].getGlobalBounds()))gameOver = true;
 }
@@ -146,8 +141,8 @@ Obstacles::Obstacles()
 	if (!this->tex[0][SMALL].loadFromFile("Assets/sthnightsq.png")) abort();
 	if (!this->tex[1][FLYING].loadFromFile("Assets/sthday.png")) abort();
 	if (!this->tex[0][FLYING].loadFromFile("Assets/sthnight.png")) abort();
-	if (!this->tex[1][WIDE].loadFromFile("Assets/wat.png")) abort();
-	if (!this->tex[0][WIDE].loadFromFile("Assets/watnight.png")) abort();
+	if (!this->tex[1][WIDE].loadFromFile("Assets/wat2.png")) abort();
+	if (!this->tex[0][WIDE].loadFromFile("Assets/wat2night.png")) abort();
 	if (!this->tex[1][HIGH].loadFromFile("Assets/hi.png")) abort();
 	if (!this->tex[0][HIGH].loadFromFile("Assets/hinight.png")) abort();
 	if (!this->tex[1][TALL].loadFromFile("Assets/tall.png")) abort();
