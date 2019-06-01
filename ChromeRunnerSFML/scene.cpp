@@ -91,9 +91,17 @@ void Scene::resetScore()
 	score = 0;
 }
 
-int Scene::getHighScore()
+const int Scene::getHighScore()
 {
 	return hScore;
+}
+
+void Scene::setHighScore(int s)
+{
+	hScore = s;
+	std::string hScoreString= std::to_string(hScore);
+	hScore >= 10000 ? hScoreText.setString(hScoreString) : hScore >= 1000 ? hScoreText.setString("0" + hScoreString) : hScore >= 100 ? hScoreText.setString("00" + hScoreString) : hScore >= 10 ? hScoreText.setString("000" + hScoreString) : hScoreText.setString("0000" + hScoreString);
+	hScoreText.setString("HI " + hScoreText.getString());
 }
 
 Scene::Scene() : day(true), score(0), hScore(0){

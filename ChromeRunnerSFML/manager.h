@@ -32,6 +32,7 @@ public:
 	void clear();
 	void display();
 	int getHighScore();
+	void setHighScore(int s);
 	Manager();
 	virtual ~Manager();
 };

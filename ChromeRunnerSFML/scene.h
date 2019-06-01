@@ -26,7 +26,8 @@ public:
 	void restart();
 	void updateScore(bool pause);
 	void resetScore();
-	int getHighScore();
+	const int getHighScore();
+	void setHighScore(int s);
 	Scene();
 	~Scene();
 };

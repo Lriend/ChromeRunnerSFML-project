@@ -3,7 +3,8 @@
 void Manager::handleEvents()
 {
 	if (event.key.code == sf::Keyboard::Q && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) this->close();
-	if (!gameOver &&event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::P)) { this->pause = !this->pause; if (!pause) hint<8?hint++:hint=1; }
+	if (!gameOver &&event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::P 
+		|| event.key.code == sf::Keyboard::Numpad0 || event.key.code == sf::Keyboard::E)) { this->pause = !this->pause; if (!pause) hint<8?hint++:hint=1; }
 	//scene.handleEvents(this->event);
 	if (!pause) {
 		if (this->obstacles.getGameOver() && event.type == event.KeyPressed &&restart) {
@@ -92,6 +93,11 @@ int Manager::getHighScore()
 	return scene.getHighScore();
 }
 
+void Manager::setHighScore(int s)
+{
+	scene.setHighScore(s);
+}
+
 Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lriend", sf::Style::Close | sf::Style::Titlebar)
 {
 	srand(NULL);
@@ -106,7 +112,7 @@ Manager::Manager() : window(sf::VideoMode(800, 400), "Chrome Runner SFML by Lrie
 	DEATH[0].setString("DEAD!");
 	PAUSE[0].setString("PAUSE");
 	START.setString("ChromeRunnerSFML");
-	HOWTOPLAY.setString("Movement - arrows, quit - 'Q', pause - 'Escape'/'P'\n\n\n\n\n\n\n\n\n\nPress any key to continue...");
+	HOWTOPLAY.setString("Movement - WSAD/arrows\n      Pause - Escape / E / Numpad0\n            Quit - Q\n\n\n\n\n\n\n\nPress any key to continue...");
 
 	DEATH[1].setString("K.O.");
 	DEATH[2].setString("And that's how dinosaurs become extinct!");

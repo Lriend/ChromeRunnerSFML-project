@@ -15,11 +15,11 @@ void Player::update(bool day, sf::Event &event, sf::Time deltaTime)
 	//jmp
 	if (isGrounded) {
 		velocity.y = 0;
-		this->duck = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)?true:false;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !duck) { velocity.y = -jumpForce; }
+		this->duck = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)?true: sf::Keyboard::isKeyPressed(sf::Keyboard::S) ? true : false;
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && !duck) { velocity.y = -jumpForce; }
 	}
 	else {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) /*&&velocity<0 gdybym chcial zrobic spadanie niezaleznie od wcisniecia spacji*/) velocity.y += gravity / 2;
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) /*&&velocity<0 gdybym chcial zrobic spadanie niezaleznie od wcisniecia spacji*/) velocity.y += gravity / 2;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) velocity.y += gravity * 10;
 		else velocity.y += gravity;
 	}
@@ -30,8 +30,8 @@ void Player::update(bool day, sf::Event &event, sf::Time deltaTime)
 
 	//movem
 	velocity.x = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && dino.getPosition().x > 50) velocity.x = -.5f*deltaTime.asMicroseconds() / 1000;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && dino.getPosition().x < 750) velocity.x = .5f*deltaTime.asMicroseconds() / 1000;
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && dino.getPosition().x > 50) velocity.x = -.5f*deltaTime.asMicroseconds() / 1000;
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)|| sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dino.getPosition().x < 750) velocity.x = .5f*deltaTime.asMicroseconds() / 1000;
 	duck?dino.setTextureRect(sf::IntRect(0, 0, 59, 30)):dino.setTextureRect(sf::IntRect(0, 0, 44, 47));
 	if (duck) dino.setPosition(dino.getPosition().x, 283.f);
 	dino.setTexture(day?dinoTex[currentTex]:nightTex[currentTex]);
